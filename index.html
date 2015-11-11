@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pollution Predictor</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Pollution Predictor">
+  <meta name="author" content="catharpin">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Pollution Predictor</h1>
+    <h2>Exploring the 2015 EPA air quality dataset</h2>
+    <p>catharpin<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Introduction</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Annual average air pollution data is available at the <a href="https://www.epa.gov/airdata">EPA air quality website</a>.
+The EPA provides an interactive mapping tool, but it is not available on all platforms due to its
+use of the Google Earth browser plugin.  R and the
+Shiny platform give us the means to address this shortcoming.</p>
+
+<p>We have demonstrated this using 2015 pollution data for ozone and PM 2.5 particulate matter.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Obtaining the Data Efficiently</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>We can automate the entire process of obtaining the data and formatting it for use with the application.
+Reducing the size of the dataset helps to improve the performance and responsiveness; we also check
+to see if we already have the data to avoid downloading it repeatedly.  </p>
+
+<pre><code class="r">if (file.exists(&quot;./pollution_data.Rdata&quot;)){
+  load(&quot;./pollution_data.Rdata&quot;)
+} else {
+  if (!file.exists(&quot;./annual_all_2015.zip&quot;)) {
+    download.file(&quot;http://aqsdr1.epa.gov/aqsweb/aqstmp/airdata/annual_all_2015.zip&quot;, 
+                  destfile=&quot;annual_all_2015.zip&quot;)
+  }
+# Transformations removed for brevity
+  save(pollution_data,file=&quot;pollution_data.Rdata&quot;)
+}
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Viewing the Results</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Our application allows the user to select the pollutant and latitude and longitude of interest to them, displaying it on a US map to assist with
+context.  The system will then determine the nearest five monitoring stations reporting data for that pollutant and averages them to produce an estimated average annual pollutant level for that location.  The stations used in this analysis are shown below.</p>
+
+<p><img src="assets/fig/unnamed-chunk-4-1.png" alt="plot of chunk unnamed-chunk-4"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Try it Yourself</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><code>https://catharpin.shinyapps.io/bright-shiny-object/</code></p>
+
+<p><img src="app.png" title="Screenshot of the application" height="50%" width="50%"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Introduction'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Obtaining the Data Efficiently'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Viewing the Results'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Try it Yourself'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
